@@ -156,3 +156,7 @@
 .jfx-dialog-overlay-pane {
     -fx-background-color:#1A172A;
 }
+
+.label, .button, .table-column {
+    -fx-text-fill: black;
+}

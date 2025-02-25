@@ -8,7 +8,7 @@ import java.util.List;
 public class CategoryRepository {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/Restaurant";
     private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "";
+    private static final String DB_PASSWORD = "123456";
 
     public List<Category> getAllCategories() {
         List<Category> categories = new ArrayList<>();

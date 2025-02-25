@@ -15,7 +15,6 @@
             <Button text="Add Category" fx:id="addCategoryButton" onAction="#handleAddCategory"/>
             <Button text="Edit Category" fx:id="editCategoryButton" onAction="#handleEditCategory"/>
             <Button text="Delete Category" fx:id="deleteCategoryButton" onAction="#handleDeleteCategory"/>
-            <Button text="Back" fx:id="backButton" onAction="#handleBack"/>
         </HBox>
     </VBox>
 </AnchorPane>

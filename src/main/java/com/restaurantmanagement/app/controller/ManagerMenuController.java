@@ -11,6 +11,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -220,14 +222,19 @@ public class ManagerMenuController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/restaurantmanagement/fxml/categories.fxml"));
             AnchorPane categoriesPane = loader.load();
-            Scene currentScene = categoriesButton.getScene();
-            currentScene.setRoot(categoriesPane);
+            Stage popupStage = new Stage();
+            popupStage.setTitle("Manage Categories");
+            Scene scene = new Scene(categoriesPane);
+            popupStage.setScene(scene);
+            popupStage.initModality(Modality.APPLICATION_MODAL);
+            popupStage.showAndWait();
+
         } catch (IOException e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
-            alert.setHeaderText("Unable to load categories");
-            alert.setContentText("An error occurred while switching to categories.");
+            alert.setHeaderText("Unable to open category management");
+            alert.setContentText("An error occurred while opening the category popup.");
             alert.showAndWait();
         }
     }

@@ -50,7 +50,7 @@ public class InventoryController {
 
     private void connectDB() {
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/Restaurant", "root", "");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/Restaurant", "root", "123456");
         } catch (SQLException e) {
             e.printStackTrace();
             showAlert("Connection Error", "Unable to connect to the database!", Alert.AlertType.ERROR);

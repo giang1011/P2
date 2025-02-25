@@ -101,22 +101,4 @@ public class CategoriesController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
-    @FXML
-    private void handleBack(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/restaurantmanagement/fxml/menu.fxml"));
-            AnchorPane managerMenu = loader.load();
-
-            Scene currentScene = backButton.getScene();
-            currentScene.setRoot(managerMenu);
-        } catch (IOException e) {
-            e.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Failed to load Manager Menu");
-            alert.setContentText("An error occurred while navigating back.");
-            alert.showAndWait();
-        }
-    }
 }

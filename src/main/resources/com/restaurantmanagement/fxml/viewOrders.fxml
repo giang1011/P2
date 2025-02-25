@@ -18,7 +18,7 @@
             </columns>
         </TableView>
 
-        <TextField fx:id="orderIdField" layoutX="50" layoutY="460" promptText="Enter Order ID"/>
+        <TextField fx:id="orderIdField" layoutX="50" layoutY="460" promptText="Enter Order ID" style="-fx-text-fill: black;"/>
         <ComboBox fx:id="statusComboBox" layoutX="250" layoutY="460" promptText="Select Status">
             <items>
                 <FXCollections fx:factory="observableArrayList">

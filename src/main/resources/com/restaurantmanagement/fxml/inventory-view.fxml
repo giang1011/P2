@@ -17,19 +17,19 @@
                 </HBox>
                 <HBox spacing="15">
                     <Label text="Supplier:" />
-                    <TextField fx:id="supplierField" />
+                    <TextField fx:id="supplierField" style="-fx-text-fill: black;" />
                 </HBox>
                 <HBox spacing="15">
                     <Label text="Quantity:" />
-                    <TextField fx:id="quantityField" />
+                    <TextField fx:id="quantityField" style="-fx-text-fill: black;" />
                 </HBox>
                 <HBox spacing="15">
                     <Label text="Unit:" />
-                    <TextField fx:id="unitField" />
+                    <TextField fx:id="unitField" style="-fx-text-fill: black;" />
                 </HBox>
                 <HBox spacing="15">
                     <Label text="Price:" />
-                    <TextField fx:id="priceField" />
+                    <TextField fx:id="priceField" style="-fx-text-fill: black;" />
                 </HBox>
                 <Button text="Stock In" fx:id="addPurchaseButton" onAction="#handleAddPurchase" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px;" />
             </VBox>
@@ -38,19 +38,19 @@
                 <Label text="Cancel Ingredient" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333333;" />
                 <HBox spacing="15">
                     <Label text="Ingredient:" />
-                    <ComboBox fx:id="cancelIngredientComboBox" />
+                    <ComboBox fx:id="cancelIngredientComboBox" style="-fx-text-fill: white;" />
                 </HBox>
                 <HBox spacing="15">
                     <Label text="Quantity:" />
-                    <TextField fx:id="cancelQuantityField" />
+                    <TextField fx:id="cancelQuantityField" style="-fx-text-fill: black;" />
                 </HBox>
                 <HBox spacing="15">
                     <Label text="Unit:" />
-                    <TextField fx:id="cancelUnitField" />
+                    <TextField fx:id="cancelUnitField" style="-fx-text-fill: black;" />
                 </HBox>
                 <HBox spacing="15">
                     <Label text="Note:" />
-                    <TextField fx:id="cancelNoteField" />
+                    <TextField fx:id="cancelNoteField" style="-fx-text-fill: black;" />
                 </HBox>
                 <Button text="Cancel Ingredient" fx:id="cancelIngredientButton" onAction="#handleCancelIngredient" style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-font-size: 14px;" />
             </VBox>
@@ -60,9 +60,9 @@
     <bottom>
         <VBox spacing="15" style="-fx-padding: 20px;">
             <HBox spacing="15">
-                <TextField fx:id="ingredientFilterField" promptText="Filter by Ingredient" style="-fx-padding: 5px; -fx-font-size: 14px;" />
+                <TextField fx:id="ingredientFilterField" promptText="Filter by Ingredient" style="-fx-padding: 5px; -fx-font-size: 14px; -fx-text-fill: black;" />
                 <DatePicker fx:id="dateFilterField" />
-                <TextField fx:id="transactionTypeFilterField" promptText="Filter by Transaction Type" style="-fx-padding: 5px; -fx-font-size: 14px;" />
+                <TextField fx:id="transactionTypeFilterField" promptText="Filter by Transaction Type" style="-fx-padding: 5px; -fx-font-size: 14px; -fx-text-fill: black;" />
                 <Button fx:id="filterButton" text="Filter" onAction="#handleFilter" style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-size: 14px;" />
             </HBox>
 

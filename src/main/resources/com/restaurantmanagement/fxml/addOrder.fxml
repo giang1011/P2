@@ -5,29 +5,29 @@
 
 <VBox spacing="10" alignment="CENTER" xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.restaurantmanagement.app.controller.AddOrderController">
-    <Label text="Add Order" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+    <Label text="Add Order" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: black;"/>
 
     <HBox spacing="10">
-        <TextField fx:id="itemIdField" promptText="Item ID"/>
-        <TextField fx:id="quantityField" promptText="Quantity"/>
-        <TextField fx:id="priceField" promptText="Price"/>
-        <Button text="➕ Add" onAction="#handleAddItem"/>
+        <TextField fx:id="itemIdField" promptText="Item ID" style="-fx-text-fill: black;"/>
+        <TextField fx:id="quantityField" promptText="Quantity" style="-fx-text-fill: black;"/>
+        <TextField fx:id="priceField" promptText="Price" style="-fx-text-fill: black;"/>
+        <Button text="➕ Add" onAction="#handleAddItem" style="-fx-text-fill: black;"/>
     </HBox>
 
     <TableView fx:id="orderTable">
         <columns>
-            <TableColumn text="Item ID" fx:id="itemIdColumn"/>
-            <TableColumn text="Quantity" fx:id="quantityColumn"/>
-            <TableColumn text="Price" fx:id="priceColumn"/>
+            <TableColumn text="Item ID" fx:id="itemIdColumn" style="-fx-text-fill: black;"/>
+            <TableColumn text="Quantity" fx:id="quantityColumn" style="-fx-text-fill: black;"/>
+            <TableColumn text="Price" fx:id="priceColumn" style="-fx-text-fill: black;"/>
         </columns>
     </TableView>
 
     <HBox spacing="10">
-        <Button text="🗑 Delete" onAction="#handleDeleteItem"/>
+        <Button text="🗑 Delete" onAction="#handleDeleteItem" style="-fx-text-fill: black;"/>
     </HBox>
 
-    <Label text="Total Amount: " style="-fx-font-size: 14px;"/>
-    <Label fx:id="totalAmountLabel" text="0.00" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+    <Label text="Total Amount: " style="-fx-font-size: 14px; -fx-text-fill: black;"/>
+    <Label fx:id="totalAmountLabel" text="0.00" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: black;"/>
 
-    <Button text="💾 Save Order" onAction="#handleSaveOrder"/>
+    <Button text="💾 Save Order" onAction="#handleSaveOrder" style="-fx-text-fill: black;"/>
 </VBox>

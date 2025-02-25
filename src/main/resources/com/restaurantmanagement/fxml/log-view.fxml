@@ -6,7 +6,7 @@
         <Label text="Stock Management" />
         <HBox spacing="10">
             <Label text="Search by Name:" />
-            <TextField fx:id="nameSearchField" />
+            <TextField fx:id="nameSearchField" style="-fx-text-fill: black;" />
             <Label text="Search by Date:" />
             <DatePicker fx:id="dateSearchField" />
             <Button text="Search" onAction="#handleSearch" />

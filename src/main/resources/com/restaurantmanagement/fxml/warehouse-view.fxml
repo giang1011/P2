@@ -16,7 +16,7 @@
             <HBox spacing="10">
                 <Label text="Category:" />
                 <ComboBox fx:id="categoryFilter" onAction="#handleFilterByCategory" />
-                <TextField fx:id="searchField" promptText="Search ingredient..." />
+                <TextField fx:id="searchField" promptText="Search ingredient..." style="-fx-text-fill: black;" />
                 <Button text="Search" onAction="#handleSearch"/>
                 <Region HBox.hgrow="ALWAYS"/>
                 <Button text="Save Stock" onAction="#handleSaveDailyStock"/>
