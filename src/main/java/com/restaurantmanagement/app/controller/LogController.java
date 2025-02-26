@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,6 +26,7 @@ public class LogController {
 
     @FXML private TextField nameSearchField;
     @FXML private DatePicker dateSearchField;
+    @FXML private Button refreshButton;
 
     private final ObservableList<DailyStock> dailyStockList = FXCollections.observableArrayList();
 
@@ -48,7 +50,8 @@ public class LogController {
                 -> cellData.getValue().pricePerUnitProperty().asObject());
         dateColumn.setCellValueFactory(cellData
                 -> cellData.getValue().dateProperty());
-
+        nameSearchField.setStyle("-fx-text-fill: black;");
+        dateSearchField.getEditor().setStyle("-fx-text-fill: black;");
         loadDailyStockData();
     }
 
@@ -97,5 +100,12 @@ public class LogController {
         }
 
         dailyStockTable.setItems(filteredList);
+    }
+
+    @FXML
+    private void handleRefresh() {
+        nameSearchField.clear();
+        dateSearchField.setValue(null);
+        loadDailyStockData();
     }
 }

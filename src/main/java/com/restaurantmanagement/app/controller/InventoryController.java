@@ -10,17 +10,19 @@ import java.sql.*;
 
 public class InventoryController {
     @FXML
+    private ComboBox<String> transactionTypeFilterField;
+    @FXML
+    private TextField ingredientField, cancelIngredientField;
+    @FXML
     private DatePicker dateFilterField;
     @FXML
-    private TextField ingredientFilterField, transactionTypeFilterField;
+    private TextField ingredientFilterField;
     @FXML
     private Button filterButton;
     @FXML
     private TextField cancelUnitField;
     @FXML
     private TextField unitField, supplierField, quantityField, priceField, cancelQuantityField, cancelNoteField;
-    @FXML
-    private ComboBox<String> ingredientComboBox, cancelIngredientComboBox;
     @FXML
     private TableView<InventoryLog> inventoryLogTable;
     @FXML
@@ -36,6 +38,7 @@ public class InventoryController {
 
     public void initialize() {
         connectDB();
+        loadTransactionTypes();
         loadIngredients();
         loadInventoryLog();
 
@@ -57,21 +60,37 @@ public class InventoryController {
         }
     }
 
+    private void loadTransactionTypes() {
+        String query = "SELECT TypeName FROM TransactionTypes";
+        ObservableList<String> transactionTypes = FXCollections.observableArrayList();
+
+        try (PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                transactionTypes.add(rs.getString("TypeName"));
+            }
+            transactionTypeFilterField.setItems(transactionTypes);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void loadIngredients() {
         String query = "SELECT Name FROM Ingredients";
         try (PreparedStatement stmt = conn.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
 
-            ObservableList<String> ingredients = FXCollections.observableArrayList();
-            while (rs.next()) {
-                ingredients.add(rs.getString("Name"));
+            if (rs.next()) {
+                // Gán giá trị mặc định cho TextField
+                ingredientField.setText(rs.getString("Name"));
+                cancelIngredientField.setText(rs.getString("Name"));
             }
-            ingredientComboBox.setItems(ingredients);
-            cancelIngredientComboBox.setItems(ingredients);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 
     private void loadInventoryLog() {
         ObservableList<InventoryLog> logList = FXCollections.observableArrayList();
@@ -106,12 +125,12 @@ public class InventoryController {
     @FXML
     private void handleAddPurchase() {
         String supplier = supplierField.getText();
-        String ingredientName = ingredientComboBox.getValue();
+        String ingredientName = ingredientField.getText().trim();
         String quantityText = quantityField.getText();
         String priceText = priceField.getText();
         String unit = unitField.getText().trim();
 
-        if (ingredientName == null || quantityText.isEmpty() || priceText.isEmpty() || unit.isEmpty()) {
+        if (ingredientName.isEmpty() || quantityText.isEmpty() || priceText.isEmpty() || unit.isEmpty()) {
             showAlert("Error", "Please fill in all information, including the unit!", Alert.AlertType.ERROR);
             return;
         }
@@ -167,7 +186,7 @@ public class InventoryController {
             loadInventoryLog();
 
             supplierField.clear();
-            ingredientComboBox.getSelectionModel().clearSelection();
+            ingredientField.clear();
             quantityField.clear();
             priceField.clear();
             unitField.clear();
@@ -179,12 +198,12 @@ public class InventoryController {
 
     @FXML
     private void handleCancelIngredient() {
-        String ingredientName = cancelIngredientComboBox.getValue();
+        String ingredientName = cancelIngredientField.getText().trim();
         String quantityText = cancelQuantityField.getText();
         String note = cancelNoteField.getText();
         String unit = cancelUnitField.getText().trim();
 
-        if (ingredientName == null || quantityText.isEmpty() || note.isEmpty() || unit.isEmpty()) {
+        if (ingredientName.isEmpty() || quantityText.isEmpty() || note.isEmpty() || unit.isEmpty()) {
             showAlert("Error", "Please fill in all information, including the unit!", Alert.AlertType.ERROR);
             return;
         }
@@ -237,7 +256,7 @@ public class InventoryController {
             showAlert("Success", "Ingredient cancellation successful!", Alert.AlertType.INFORMATION);
             loadInventoryLog();
 
-            cancelIngredientComboBox.getSelectionModel().clearSelection();
+            cancelIngredientField.clear();
             cancelQuantityField.clear();
             cancelNoteField.clear();
             cancelUnitField.clear();
@@ -250,11 +269,8 @@ public class InventoryController {
     @FXML
     private void handleFilter() {
         String ingredientFilter = ingredientFilterField.getText().trim();
-        String dateFilter = "";
-        if (dateFilterField.getValue() != null) {
-            dateFilter = dateFilterField.getValue().toString();
-        }
-        String transactionTypeFilter = transactionTypeFilterField.getText().trim();
+        String dateFilter = (dateFilterField.getValue() != null) ? dateFilterField.getValue().toString() : "";
+        String transactionTypeFilter = (transactionTypeFilterField.getValue() != null) ? transactionTypeFilterField.getValue() : "";
 
         loadInventoryLog(ingredientFilter, dateFilter, transactionTypeFilter);
     }
@@ -263,21 +279,21 @@ public class InventoryController {
         ObservableList<InventoryLog> logList = FXCollections.observableArrayList();
 
         StringBuilder query = new StringBuilder("""
-        SELECT i.Name AS Ingredient, t.TypeName, l.Quantity, l.Price, l.Note, l.TransactionDate, l.Unit
-        FROM InventoryTransactions l
-        JOIN Ingredients i ON l.IngredientID = i.IngredientID
-        JOIN TransactionTypes t ON l.TransactionTypeID = t.TransactionTypeID
-        WHERE 1=1
-    """);
+            SELECT i.Name AS Ingredient, t.TypeName, l.Quantity, l.Price, l.Note, l.TransactionDate, l.Unit
+            FROM InventoryTransactions l
+            JOIN Ingredients i ON l.IngredientID = i.IngredientID
+            JOIN TransactionTypes t ON l.TransactionTypeID = t.TransactionTypeID
+            WHERE 1=1
+        """);
 
         if (!ingredientFilter.isEmpty()) {
             query.append(" AND i.Name LIKE ?");
         }
         if (!dateFilter.isEmpty()) {
-            query.append(" AND l.TransactionDate LIKE ?");
+            query.append(" AND l.TransactionDate = ?");
         }
         if (!transactionTypeFilter.isEmpty()) {
-            query.append(" AND t.TypeName LIKE ?");
+            query.append(" AND t.TypeName = ?");
         }
 
         query.append(" ORDER BY l.TransactionDate DESC");
@@ -289,10 +305,10 @@ public class InventoryController {
                 stmt.setString(paramIndex++, "%" + ingredientFilter + "%");
             }
             if (!dateFilter.isEmpty()) {
-                stmt.setString(paramIndex++, "%" + dateFilter + "%");
+                stmt.setString(paramIndex++, dateFilter);
             }
             if (!transactionTypeFilter.isEmpty()) {
-                stmt.setString(paramIndex++, "%" + transactionTypeFilter + "%");
+                stmt.setString(paramIndex++, transactionTypeFilter);
             }
 
             try (ResultSet rs = stmt.executeQuery()) {
@@ -313,6 +329,7 @@ public class InventoryController {
             e.printStackTrace();
         }
     }
+
 
     private void showAlert(String title, String message, Alert.AlertType type) {
         Alert alert = new Alert(type);

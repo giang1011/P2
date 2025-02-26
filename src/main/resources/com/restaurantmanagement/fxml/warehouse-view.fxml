@@ -15,7 +15,8 @@
         <VBox spacing="10" style="-fx-padding: 15;">
             <HBox spacing="10">
                 <Label text="Category:" />
-                <ComboBox fx:id="categoryFilter" onAction="#handleFilterByCategory" />
+                <ComboBox fx:id="categoryFilter" onAction="#handleFilterByCategory" style="-fx-text-fill: black;
+              -fx-background-color: white;" />
                 <TextField fx:id="searchField" promptText="Search ingredient..." style="-fx-text-fill: black;" />
                 <Button text="Search" onAction="#handleSearch"/>
                 <Region HBox.hgrow="ALWAYS"/>

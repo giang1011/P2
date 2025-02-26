@@ -7,8 +7,8 @@
         <HBox spacing="10">
             <Label text="Search by Name:" />
             <TextField fx:id="nameSearchField" style="-fx-text-fill: black;" />
-            <Label text="Search by Date:" />
-            <DatePicker fx:id="dateSearchField" />
+            <DatePicker fx:id="dateSearchField" style="-fx-text-fill: black;"/>
+            <Button fx:id="refreshButton" text="Refresh" onAction="#handleRefresh"/>
             <Button text="Search" onAction="#handleSearch" />
         </HBox>
     </top>
